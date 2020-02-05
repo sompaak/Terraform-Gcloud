@@ -10,7 +10,7 @@ gcloud builds submit --config docker.yaml
 ```
 
 ```sh
-bash gcloud.bash
+./gcloud.bash
 ```
 
 #### docker.yaml
