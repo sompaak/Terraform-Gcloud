@@ -1,11 +1,38 @@
 # Terraform-Gcloud
 
-This Repository explains how to build a terraform docker which includes gcloud and executes a terraform script within cloud build.
+This repository explains how to build a terraform docker which includes gcloud and execute a terraform script within cloud build.
 
 
 ## Execution Points:
 
-### cloudbuild-docker/docker.yaml
+### /cloudbuild-docker
+
+In order to execute this execution point - gcloud builds submit --config=docker.yaml
+
+#### /cloudbuild-docker/Dockerfile
+
+The following Dockerfile contains terraform along with gcloud sdk. As a part of the gcloud sdk kubectl is installed. For this reason kubectl does not need to be installed separately.
+
+```
+FROM alpine:3.9
+
+ARG TERRAFORM_VERSION
+ARG TERRAFORM_VERSION_SHA256SUM
+
+COPY terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+RUN echo "${TERRAFORM_VERSION_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > checksum && sha256sum -c checksum
+RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+FROM gcr.io/cloud-builders/gcloud
+
+COPY --from=0 terraform /usr/bin/terraform
+COPY entrypoint.bash /builder/entrypoint.bash
+ENTRYPOINT ["/builder/entrypoint.bash"]
+
+
+```
+
+#### /cloudbuild-docker/docker.yaml
 
 The following builds a docker and pushes it to continer repository. 
 
@@ -42,23 +69,26 @@ tags: ['cloud-builders-community']
 
   ```
   
-###  ./terraform.yaml
+####  ./terraform.yaml
+In order to execure this execution point - gcloud builds submit --config=terraform.yaml
+
   
-  the following uses the the docker image within the container registry to execute terraform. 
+  The following uses the the docker image within the container registry to execute terraform. 
   ```
-  - name: 'terraform-gcloud'
+  steps:
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['init']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['plan']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['apply', '-auto-approve']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['destroy', '-auto-approve']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
