@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#Creates docker image and pushes it to container registry 
-gcloud builds submit --config docker.yaml
+
 
 #Uses image to run terraform
 gcloud builds submit --config terraform.yaml

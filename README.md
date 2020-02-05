@@ -4,7 +4,10 @@ This repository explains how to build a docker with terraform which includes gcl
 
 
 ## Execution Point
-In order to run the cloudbuild scripts execute the following file:
+In order to run the cloudbuild scripts execute the following:
+```sh
+gcloud builds submit --config docker.yaml
+```
 
 ```sh
 bash gcloud.bash

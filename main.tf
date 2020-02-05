@@ -1,12 +1,12 @@
 
   
 provider "google" {
-  project     = "akhil-sompalli"
-  region      = "us-central1"
+  project     = var.project-name
+  region      = var.region
 }
 
 resource "google_compute_instance" "default" {
-  name         = "test-instance"
+  name         = "test"
   machine_type = "n1-standard-1"
   zone         = "us-central1-a"
 
@@ -51,3 +51,8 @@ resource "google_compute_instance" "default" {
     command = "kubectl get nodes"
   }
 }
+
+  
+
+  
+
