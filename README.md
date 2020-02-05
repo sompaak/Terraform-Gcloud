@@ -13,7 +13,6 @@ bash gcloud.bash
 #### docker.yaml
 
 The following builds a docker and pushes it to continer repository. 
-
 gcr.io in the tag section is required in order to push the image to container registery.
 ```
 # This builds a docker with gcloud installed
