@@ -69,7 +69,7 @@ tags: ['cloud-builders-community']
   
 ####  ./terraform.yaml
   
-  the following uses the the docker image within the container registry to execute terraform. 
+  The following uses the the docker image within the container registry to execute terraform. 
   ```
   - name: 'terraform-gcloud'
   args: ['init']
