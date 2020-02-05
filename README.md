@@ -1,38 +1,16 @@
 # Terraform-Gcloud
 
-This repository explains how to build a terraform docker which includes gcloud and execute a terraform script within cloud build along with other components such as kubectl and a bash script.
+This repository explains how to build a docker with terraform which includes gcloud and execute a terraform script within cloud build along with other components
 
 
-## Execution Points:
+## Execution Point
+In order to run the cloudbuild scripts execute the following file:
 
-### /cloudbuild-docker
-
-In order to execute this execution point - gcloud builds submit --config=docker.yaml
-
-#### /cloudbuild-docker/Dockerfile
-
-The following Dockerfile contains terraform along with gcloud sdk. As a part of the gcloud sdk kubectl is installed. For this reason kubectl does not need to be installed separately.
-
-```
-FROM alpine:3.9
-
-ARG TERRAFORM_VERSION
-ARG TERRAFORM_VERSION_SHA256SUM
-
-COPY terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-RUN echo "${TERRAFORM_VERSION_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > checksum && sha256sum -c checksum
-RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-
-FROM gcr.io/cloud-builders/gcloud
-
-COPY --from=0 terraform /usr/bin/terraform
-COPY entrypoint.bash /builder/entrypoint.bash
-ENTRYPOINT ["/builder/entrypoint.bash"]
-
-
+```sh
+bash gcloud.bash
 ```
 
-#### /cloudbuild-docker/docker.yaml
+#### docker.yaml
 
 The following builds a docker and pushes it to continer repository. 
 
@@ -68,10 +46,30 @@ images:
 tags: ['cloud-builders-community']
 
   ```
+#### Dockerfile
+
+The following Dockerfile contains terraform along with gcloud sdk. As a part of the gcloud sdk kubectl is installed. For this reason kubectl does not need to be installed separately.
+
+```
+FROM alpine:3.9
+
+ARG TERRAFORM_VERSION
+ARG TERRAFORM_VERSION_SHA256SUM
+
+COPY terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+RUN echo "${TERRAFORM_VERSION_SHA256SUM}  terraform_${TERRAFORM_VERSION}_linux_amd64.zip" > checksum && sha256sum -c checksum
+RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+FROM gcr.io/cloud-builders/gcloud
+
+COPY --from=0 terraform /usr/bin/terraform
+COPY entrypoint.bash /builder/entrypoint.bash
+ENTRYPOINT ["/builder/entrypoint.bash"]
+
+
+```
   
 ####  ./terraform.yaml
-In order to execure this execution point - gcloud builds submit --config=terraform.yaml
-
   
   The following uses the the docker image within the container registry to execute terraform. 
   ```
@@ -93,3 +91,5 @@ In order to execure this execution point - gcloud builds submit --config=terrafo
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
 ```
+
+
