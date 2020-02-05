@@ -9,7 +9,7 @@ This Repository explains how to build a terraform docker which includes gcloud a
 
 #### /cloudbuild-docker/Dockerfile
 
-The folowing Dockerfile contains terraform along with gcloud sdk. As a part of the gcloud sdk kubectl is installed. For this reason kubectl does not need to be installed separately.
+The following Dockerfile contains terraform along with gcloud sdk. As a part of the gcloud sdk kubectl is installed. For this reason kubectl does not need to be installed separately.
 
 ```
 FROM alpine:3.9
