@@ -6,7 +6,7 @@ provider "google" {
 }
 
 resource "google_compute_instance" "default" {
-  name         = "test"
+  name         = "test1"
   machine_type = "n1-standard-1"
   zone         = "us-central1-a"
 
@@ -39,5 +39,15 @@ resource "google_compute_instance" "default" {
 
   service_account {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
+  }
+
+  provisioner "local-exec" {
+    command = "gcloud compute instances list"
+  }
+  provisioner "local-exec" {
+    command = "gcloud container clusters get-credentials hello-cloudbuild --zone us-central1-b --project akhil-sompalli"
+  }
+  provisioner "local-exec" {
+    command = "kubectl get nodes"
   }
 }

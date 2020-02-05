@@ -1,40 +1,19 @@
-# This builds a docker with gcloud installed
-substitutions:
-  _TERRAFORM_VERSION: 0.12.9
-  _TERRAFORM_VERSION_SHA256SUM: 69712c6216cc09b7eca514b9fb137d4b1fead76559c66f338b4185e1c347ace5
-steps:
-- name: 'gcr.io/cloud-builders/wget'
-  args: ["https://releases.hashicorp.com/terraform/${_TERRAFORM_VERSION}/terraform_${_TERRAFORM_VERSION}_linux_amd64.zip"]
-- name: 'gcr.io/cloud-builders/docker'
-  env:
-  - 'TERRAFORM_VERSION=${_TERRAFORM_VERSION}'
-  - 'TERRAFORM_VERSION_SHA256SUM=${_TERRAFORM_VERSION_SHA256SUM}'
-  args:
-  - build
-  - --build-arg
-  - TERRAFORM_VERSION=${_TERRAFORM_VERSION}
-  - --build-arg
-  - TERRAFORM_VERSION_SHA256SUM=${_TERRAFORM_VERSION_SHA256SUM}
-  - --tag
-  - terraform-gcloud:${_TERRAFORM_VERSION}
-  - --tag
-  - terraform-gcloud:latest
-  - .
 
 # These steps execute docker run with the docker that was created.
-- name: 'terraform-gcloud'
+steps:
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['init']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['plan']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['apply', '-auto-approve']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['destroy', '-auto-approve']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
@@ -53,9 +32,3 @@ steps:
 
 
 # This step pushes the specified docker image to container registry
-# - name: 'terraform-gcloud:${_TERRAFORM_VERSION}'
-#   args: ['version']
-# images:
-#   - 'terraform-gcloud:${_TERRAFORM_VERSION}'
-#   - 'terraform-gcloud:latest'
-# tags: ['cloud-builders-community']
