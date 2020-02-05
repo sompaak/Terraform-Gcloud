@@ -20,15 +20,8 @@ steps:
 
 
 # This step executes a docker with kubectl
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'name.yaml']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=hello-cloudbuild'
 
 # This step executes a bash script
-- name: 'ubuntu'
-  args: ['bash','-c','./myscript.bash']
 
 
 # This step pushes the specified docker image to container registry
