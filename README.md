@@ -5,7 +5,9 @@ This Repository explains how to build a terraform docker which includes gcloud a
 
 ## Execution Points:
 
-### cloudbuild-docker/Dockerfile
+/cloudbuild-docker
+
+### /cloudbuild-docker/Dockerfile
 
 The folowing Dockerfile contains terraform along with gcloud sdk. As a part of the gcloud sdk kubectl is installed. For this reason kubectl does not need to be installed separately.
 
@@ -28,7 +30,7 @@ ENTRYPOINT ["/builder/entrypoint.bash"]
 
 ```
 
-### cloudbuild-docker/docker.yaml
+### /cloudbuild-docker/docker.yaml
 
 The following builds a docker and pushes it to continer repository. 
 
