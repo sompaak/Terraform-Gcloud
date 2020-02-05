@@ -6,7 +6,7 @@ provider "google" {
 }
 
 resource "google_compute_instance" "default" {
-  name         = "test1"
+  name         = "test2"
   machine_type = "n1-standard-1"
   zone         = "us-central1-a"
 
