@@ -75,19 +75,20 @@ In order to execure this execution point - gcloud builds submit --config=terrafo
   
   The following uses the the docker image within the container registry to execute terraform. 
   ```
-  - name: 'terraform-gcloud'
+  steps:
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['init']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['plan']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['apply', '-auto-approve']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
-- name: 'terraform-gcloud'
+- name: 'gcr.io/${PROJECT_ID}/terraform'
   args: ['destroy', '-auto-approve']
   env:
     - "TF_VAR_project-name=${PROJECT_ID}"
