@@ -7,7 +7,7 @@ This repository explains how to build a terraform docker which includes gcloud a
 
 ### /cloudbuild-docker
 
-In order to execure this execution point - gcloud builds submit --config=docker.yaml
+In order to execute this execution point - gcloud builds submit --config=docker.yaml
 
 #### /cloudbuild-docker/Dockerfile
 
