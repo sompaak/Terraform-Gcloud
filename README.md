@@ -42,7 +42,7 @@ tags: ['cloud-builders-community']
 
   ```
   
-###  ./Terraform.yaml
+###  ./terraform.yaml
   
   the following uses the the docker image within the container registry to execute terraform. 
   ```
