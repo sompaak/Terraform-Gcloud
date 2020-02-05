@@ -4,9 +4,6 @@ set -e
 active_account=""
 function get-active-account() {
   active_account=$(gcloud auth list --filter=status:ACTIVE --format="value(account)" 2> /dev/null)
-  echo "hi"
-  echo $active_account
-  echo "hello"
 }
 
 function activate-service-key() {
@@ -48,6 +45,7 @@ elif [[ (-z "$active_account") &&  (-z "$GCLOUD_SERVICE_KEY") ]]; then
   echo "no active account and no key"
   service-account-usage
 fi
+
 
 echo "Running: terraform $@"
 terraform "$@"
