@@ -1,6 +1,6 @@
 # Terraform-Gcloud
 
-This repository explains how to build a terraform docker which includes gcloud and executes a terraform script within cloud build.
+This repository explains how to build a terraform docker which includes gcloud and execute a terraform script within cloud build.
 
 
 ## Execution Points:
