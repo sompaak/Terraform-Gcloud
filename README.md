@@ -69,7 +69,7 @@ ENTRYPOINT ["/builder/entrypoint.bash"]
 
 ```
   
-####  ./terraform.yaml
+####  terraform.yaml
   
   The following uses the the docker image within the container registry to execute terraform. 
   ```
@@ -92,4 +92,24 @@ ENTRYPOINT ["/builder/entrypoint.bash"]
     - "TF_VAR_project-name=${PROJECT_ID}"
 ```
 
+#### kubectl.yaml
 
+The following uses the kubectl cloud-builder in order to execute a kubectl command.
+```
+steps:
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'name.yaml']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=hello-cloudbuild'
+```
+
+#### bash.yaml 
+
+The following executes a bash script
+```
+steps:
+- name: 'ubuntu'
+  args: ['bash','-c','./myscript.bash']
+  
+```
