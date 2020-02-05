@@ -1,13 +1,15 @@
 # Terraform-Gcloud
 
-This Repository explains how to build a terraform docker which includes gcloud and execute a terraform script within cloud build.
+This Repository explains how to build a terraform docker which includes gcloud and executes a terraform script within cloud build.
 
 
-Execution points:
+## Execution Points:
 
-Docker.yaml
+### cloudbuild-docker/docker.yaml
 
-The following builds a docker and pushes it to continer repository.
+The following builds a docker and pushes it to continer repository. 
+
+gcr.io in the tag section is required in order to push the image to container registery.
 ```
 # This builds a docker with gcloud installed
 substitutions:
@@ -40,7 +42,7 @@ tags: ['cloud-builders-community']
 
   ```
   
-  Terraform.yaml
+###  ./terraform.yaml
   
   the following uses the the docker image within the container registry to execute terraform. 
   ```
