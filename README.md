@@ -5,7 +5,7 @@ This Repository explains how to build a terraform docker which includes gcloud a
 
 Execution points:
 
-Docker.yaml
+cloudbuild-docker/docker.yaml
 
 The following builds a docker and pushes it to continer repository.
 ```
@@ -40,7 +40,7 @@ tags: ['cloud-builders-community']
 
   ```
   
-  Terraform.yaml
+  ./Terraform.yaml
   
   the following uses the the docker image within the container registry to execute terraform. 
   ```
