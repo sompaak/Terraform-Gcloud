@@ -13,15 +13,27 @@ steps:
   - build
   - --build-arg
   - TERRAFORM_VERSION=${_TERRAFORM_VERSION}
+  - --build-arg
+  - TERRAFORM_VERSION_SHA256SUM=${_TERRAFORM_VERSION_SHA256SUM}
   - --tag
-  - gcr.io/${PROJECT_ID}/terraform:${_TERRAFORM_VERSION}
+  - terra-gcloud:${_TERRAFORM_VERSION}
   - --tag
-  - gcr.io/${PROJECT_ID}/terraform:latest
+  - terra-gcloud:latest
   - .
-- name: 'gcr.io/${PROJECT_ID}/terraform:${_TERRAFORM_VERSION}'
-  args: ['version']
-images:
-  - 'gcr.io/${PROJECT_ID}/terraform:${_TERRAFORM_VERSION}'
-  - 'gcr.io/${PROJECT_ID}/terraform:latest'
-tags: ['cloud-builders-community']
+- name: 'terra-gcloud'
+  args: ['init']
+  env:
+    - "TF_VAR_project-name=${PROJECT_ID}"
+- name: 'terra-gcloud'
+  args: ['plan']
+  env:
+    - "TF_VAR_project-name=${PROJECT_ID}"
+- name: 'terra-gcloud'
+  args: ['apply', '-auto-approve']
+  env:
+    - "TF_VAR_project-name=${PROJECT_ID}"
+- name: 'terra-gcloud'
+  args: ['destroy', '-auto-approve']
+  env:
+    - "TF_VAR_project-name=${PROJECT_ID}"
 

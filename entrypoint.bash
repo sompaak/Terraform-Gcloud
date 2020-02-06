@@ -47,6 +47,9 @@ elif [[ (-z "$active_account") &&  (-z "$GCLOUD_SERVICE_KEY") ]]; then
 fi
 
 
+
+
+
 echo "Running: terraform $@"
 terraform "$@"
 
