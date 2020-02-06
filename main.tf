@@ -45,7 +45,7 @@ resource "google_compute_instance" "default" {
     command = "gcloud compute instances list"
   }
   provisioner "local-exec" {
-    command = "gcloud container clusters get-credentials hello-cloudbuild --zone us-central1-b --project akhil-sompalli"
+    command = "gcloud container clusters get-credentials hello-cloudbuild --zone us-central1-b --project xyz-abc"
   }
   provisioner "local-exec" {
     command = "kubectl get nodes"
