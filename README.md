@@ -51,7 +51,7 @@ tags: ['cloud-builders-community']
 
   ```
   
-  Docker.yaml- Option-2
+  #### docker.yaml- Option-2
   
   ```
   substitutions:
