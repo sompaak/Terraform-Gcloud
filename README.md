@@ -53,6 +53,8 @@ tags: ['cloud-builders-community']
   
   #### docker.yaml- Option-2
   
+  This option does not involve container registry. It allows the option of chooding any name for the docker.
+  
   ```
   substitutions:
   _TERRAFORM_VERSION: 0.12.9
