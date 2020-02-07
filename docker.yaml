@@ -7,7 +7,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   env:
   - 'TERRAFORM_VERSION=${_TERRAFORM_VERSION}'
-  - 'TERRAFORM_VERSION_SHA256SUM=${_TERRAFORM_VERSION_SHA256SUM}'
   args:
   - build
   - --build-arg
